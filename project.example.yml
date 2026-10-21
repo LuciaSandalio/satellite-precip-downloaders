@@ -1,0 +1,38 @@
+# All timestamps are UTC. A date without a time includes that full UTC day.
+region:
+  shape: ../shapes/study_area.gpkg
+  # layer: basin
+  exact_mask: true
+
+period:
+  start: "2025-03-01"
+  end: "2025-03-31"
+
+output:
+  directory: ./downloads
+  keep_raw: false
+
+defaults:
+  workers: 4
+  retries: 3
+  resume: true
+
+sources:
+  goes:
+    satellite: auto
+    product: ABI-L2-CMIPF
+    channels: [13]
+    format: netcdf
+  glm:
+    satellite: auto
+    format: parquet
+  imerg:
+    short_name: GPM_3IMERGHH
+    version: "07"
+    variables: [precipitation, precipitationCal]
+    login_strategy: auto
+    format: parquet
+  cmorph:
+    format: parquet
+  gsmap:
+    format: parquet
